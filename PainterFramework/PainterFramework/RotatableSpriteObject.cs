@@ -25,7 +25,7 @@ namespace PainterFramework
             set
             { angle = value; }
         }
-        //lol
+        
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (!visible || sprite == null)
