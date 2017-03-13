@@ -14,10 +14,11 @@ namespace PainterFramework
 
         public ThreeColorGameObject(string redAssetName, string greenAssetName, string blueAssetName) : base("")
         {
+            //all colors
             colorRed = new SpriteSheet(redAssetName);
             colorGreen = new SpriteSheet(greenAssetName);
             colorBlue = new SpriteSheet(blueAssetName);
-
+            //starting color
             Color = Color.Blue;
         }
 
@@ -33,6 +34,7 @@ namespace PainterFramework
             get { return color; }
             set
             {
+                //set value to color and A given Color to color(variable)
                 if (value != Color.Red && value != Color.Green && value != Color.Blue)
                     return;
                 color = value;

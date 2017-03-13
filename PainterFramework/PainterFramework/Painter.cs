@@ -30,13 +30,16 @@ namespace PainterFramework
 
         protected override void LoadContent()
         {
+            //load background
             base.LoadContent();
-            Console.Write("Loading content");
-
-            GameStateManager.AddGameState("playingState", new GameWorld());
+            //Console.Write("Loading content");
+            screen = new Point(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+            //add gamestate
+            GameStateManager.AddGameState("playingState", new PainterGameWorld());
+            //default gamestate
             GameStateManager.SwitchTo("playingState");
-
-            AssetManager.PlayMusic("snd_music");
+            //play music
+            //AssetManager.PlayMusic("snd_music");
         }
     }
 }

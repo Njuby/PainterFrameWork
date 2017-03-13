@@ -10,7 +10,7 @@ namespace PainterFramework
     class PaintCan : ThreeColorGameObject
     {
         SpriteSheet currentSprite;
-        protected Color targetcolor;
+        protected Color targetColor;
         protected float minVelocity;
         protected float positionOffset;
 
@@ -21,7 +21,7 @@ namespace PainterFramework
             currentSprite = new SpriteSheet("spr_can_blue");
             sprite = currentSprite;
             this.positionOffset = positionOffset;
-            this.targetcolor = targetcol;
+            this.targetColor = targetcol;
 
             minVelocity = 30;
             this.Reset();
@@ -36,12 +36,30 @@ namespace PainterFramework
             }
         }
 
+        //UPDATE
         public override void Update(GameTime gameTime)
         {
             if (velocity.Y == 0.0f && GameEnvironment.Random.NextDouble() < 0.01)
             {
                 velocity = CalculatedRandomVelocity();
                 Color = CalculatedRandomColor();
+            }
+
+            //Gameworld is as property of all GameObjects referencing the root parentobject
+            PainterGameWorld pgw = GameWorld as PainterGameWorld;
+            //when the cans drops down the screen and color matches get 10 points else lose 1 life
+            if (pgw.IsOutsideGameWorld(GlobalPosition))
+            {
+                if (color == targetColor)
+                {
+                    pgw.Score += 10;
+                    //Painter.AssetManager.PlaySound("snd_collect_points");
+                }
+                else
+                {
+                    pgw.Lives--;
+                }
+                Reset();
             }
 
             minVelocity += 0.001f; 
