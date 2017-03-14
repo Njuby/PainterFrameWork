@@ -20,6 +20,8 @@ namespace PainterFramework
         private int score;
         private int lives;
         Ball ball = new Ball();
+        private SpriteGameObject scoreBoard;
+
 
         public PainterGameWorld()
         {
@@ -29,6 +31,9 @@ namespace PainterFramework
             cannonBarrel = new RotatableSpriteObject("spr_cannon_barrel");
             cannonBarrel.Position = new Vector2(74, 404);
             cannonBarrel.Origin = new Vector2(34, 34);
+            scoreBoard = new SpriteGameObject("spr_scorebar");
+            livesSprites = new GameObjectList();
+            livesSprites.Position = new Vector2(0, 16);
 
             ball = new Ball();
 
@@ -42,14 +47,8 @@ namespace PainterFramework
             can3 = new PaintCan(700f, Color.Blue);
 
             scoreText = new TextGameObject("GameFont");
+            scoreText.Position = new Vector2(8, 8);
 
-            livesSprites = new GameObjectList();
-            for (int lifeNr = 0; lifeNr < maxLives; lifeNr++)
-            {
-                SpriteGameObject life = new SpriteGameObject("spr_lives", 0, lifeNr.ToString());
-                life.Position = new Vector2(lifeNr * life.BoundingBox.Width, 30);
-                livesSprites.Add(life);
-            }
 
             //add objects
             this.Add(backround);
@@ -61,15 +60,25 @@ namespace PainterFramework
             this.Add(can2);
             this.Add(can3);
 
-            this.Add(livesSprites);
+            this.Add(scoreBoard);
             this.Add(scoreText);
 
             this.Add(ball);
 
             //give values
             this.score = 0;
+            scoreText.Text = "Score: " + "0";
             this.lives = 5;
             this.maxLives = lives;
+
+            for (int lifeNr = 0; lifeNr < maxLives; lifeNr++)
+            {
+                SpriteGameObject life = new SpriteGameObject("spr_lives", 0, lifeNr.ToString());
+                life.Position = new Vector2(lifeNr * life.BoundingBox.Width, 30);
+                livesSprites.Add(life);
+            }
+
+           this.Add(livesSprites);
         }
 
         public override void HandleInput(InputHelper inputHelper)
@@ -146,6 +155,14 @@ namespace PainterFramework
             {
                 can3.Color = ball.Color;
                 ball.Reset();
+            }
+
+            if (lives <= 0)
+            {
+                Painter.GameStateManager.SwitchTo("GameOverState");
+                lives = 5;
+                score = 0;
+                scoreText.Text = "score: " + score;
             }
 
             base.Update(gameTime);

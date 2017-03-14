@@ -21,9 +21,6 @@ namespace PainterFramework
 
         public Painter()
         {
-            //voor
-            //graphics = new GraphicsDeviceManager(this);
-            //Content.RootDirectory = "Content";
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
         }
@@ -36,8 +33,11 @@ namespace PainterFramework
             screen = new Point(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             //add gamestate
             GameStateManager.AddGameState("playingState", new PainterGameWorld());
+            GameStateManager.AddGameState("GameOverState", new GameOver());
+            GameStateManager.AddGameState("StartState", new StartState());
+
             //default gamestate
-            GameStateManager.SwitchTo("playingState");
+            GameStateManager.SwitchTo("StartState");
             //play music
             //AssetManager.PlayMusic("snd_music");
         }

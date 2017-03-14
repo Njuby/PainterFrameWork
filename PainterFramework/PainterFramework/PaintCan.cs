@@ -9,6 +9,7 @@ namespace PainterFramework
 {
     class PaintCan : ThreeColorGameObject
     {
+
         SpriteSheet currentSprite;
         protected Color targetColor;
         protected float minVelocity;
@@ -61,6 +62,8 @@ namespace PainterFramework
                 }
                 Reset();
             }
+
+            Angle = (float)Math.Sin(position.Y / 50.0f) * 0.1f;
 
             minVelocity += 0.001f; 
             base.Update(gameTime);

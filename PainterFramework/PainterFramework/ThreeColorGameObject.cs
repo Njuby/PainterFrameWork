@@ -7,17 +7,17 @@ using Microsoft.Xna.Framework;
 
 namespace PainterFramework
 {
-    class ThreeColorGameObject : SpriteGameObject
+    class ThreeColorGameObject : RotatableSpriteObject
     {
-        protected SpriteSheet colorRed, colorGreen, colorBlue;
+        protected SpriteSheet colorRedSprite, colorGreenSprite, colorBlueSprite;
         protected Color color;
 
         public ThreeColorGameObject(string redAssetName, string greenAssetName, string blueAssetName) : base("")
         {
             //all colors
-            colorRed = new SpriteSheet(redAssetName);
-            colorGreen = new SpriteSheet(greenAssetName);
-            colorBlue = new SpriteSheet(blueAssetName);
+            colorRedSprite = new SpriteSheet(redAssetName);
+            colorGreenSprite = new SpriteSheet(greenAssetName);
+            colorBlueSprite = new SpriteSheet(blueAssetName);
             //starting color
             Color = Color.Blue;
         }
@@ -39,11 +39,11 @@ namespace PainterFramework
                     return;
                 color = value;
                 if (color == Color.Red)
-                    sprite = colorRed;
+                    this.sprite = colorRedSprite;
                 else if (color == Color.Green)
-                    sprite = colorGreen;
+                    this.sprite = colorGreenSprite;
                 else if (color == Color.Blue)
-                    sprite = colorBlue;
+                    this.sprite = colorBlueSprite;
             }
         }
     }
